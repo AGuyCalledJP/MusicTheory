@@ -1,0 +1,1787 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.1 (Debian 12.1-1.pgdg100+1)
+-- Dumped by pg_dump version 12.1 (Debian 12.1-1.pgdg100+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO math;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.auth_group_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO math;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.auth_group_id_seq OWNED BY public.auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO math;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.auth_group_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO math;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.auth_group_permissions_id_seq OWNED BY public.auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO math;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.auth_permission_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO math;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.auth_permission_id_seq OWNED BY public.auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO math;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO math;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.auth_user_groups_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO math;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.auth_user_groups_id_seq OWNED BY public.auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.auth_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO math;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.auth_user_id_seq OWNED BY public.auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO math;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.auth_user_user_permissions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO math;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.auth_user_user_permissions_id_seq OWNED BY public.auth_user_user_permissions.id;
+
+
+--
+-- Name: authtoken_token; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.authtoken_token (
+    key character varying(40) NOT NULL,
+    created timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE public.authtoken_token OWNER TO math;
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO math;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.django_admin_log_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO math;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.django_admin_log_id_seq OWNED BY public.django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO math;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.django_content_type_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO math;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.django_content_type_id_seq OWNED BY public.django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO math;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.django_migrations_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_migrations_id_seq OWNER TO math;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.django_migrations_id_seq OWNED BY public.django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO math;
+
+--
+-- Name: notes_notebook; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.notes_notebook (
+    id integer NOT NULL,
+    title character varying(200),
+    "coverImageName" character varying(200),
+    created_by_id integer,
+    notebook_type integer NOT NULL,
+    total_pages integer NOT NULL
+);
+
+
+ALTER TABLE public.notes_notebook OWNER TO math;
+
+--
+-- Name: notes_notebook_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.notes_notebook_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notes_notebook_id_seq OWNER TO math;
+
+--
+-- Name: notes_notebook_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.notes_notebook_id_seq OWNED BY public.notes_notebook.id;
+
+
+--
+-- Name: notes_notebook_shared_with; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.notes_notebook_shared_with (
+    id integer NOT NULL,
+    notebook_id integer NOT NULL,
+    userprofile_id integer NOT NULL
+);
+
+
+ALTER TABLE public.notes_notebook_shared_with OWNER TO math;
+
+--
+-- Name: notes_notebook_shared_with_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.notes_notebook_shared_with_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notes_notebook_shared_with_id_seq OWNER TO math;
+
+--
+-- Name: notes_notebook_shared_with_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.notes_notebook_shared_with_id_seq OWNED BY public.notes_notebook_shared_with.id;
+
+
+--
+-- Name: notes_notebookroom; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.notes_notebookroom (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    staff_only boolean NOT NULL,
+    notebook_id integer
+);
+
+
+ALTER TABLE public.notes_notebookroom OWNER TO math;
+
+--
+-- Name: notes_notebookroom_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.notes_notebookroom_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notes_notebookroom_id_seq OWNER TO math;
+
+--
+-- Name: notes_notebookroom_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.notes_notebookroom_id_seq OWNED BY public.notes_notebookroom.id;
+
+
+--
+-- Name: notes_point; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.notes_point (
+    id integer NOT NULL,
+    x double precision NOT NULL,
+    y double precision NOT NULL,
+    scribble_id integer,
+    ordering integer NOT NULL
+);
+
+
+ALTER TABLE public.notes_point OWNER TO math;
+
+--
+-- Name: notes_point_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.notes_point_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notes_point_id_seq OWNER TO math;
+
+--
+-- Name: notes_point_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.notes_point_id_seq OWNED BY public.notes_point.id;
+
+
+--
+-- Name: notes_scribble; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.notes_scribble (
+    id integer NOT NULL,
+    color character varying(200),
+    notebook_id integer,
+    written_by_id integer,
+    last_screen_height double precision,
+    last_screen_width double precision,
+    page integer,
+    last_modified_by_id integer
+);
+
+
+ALTER TABLE public.notes_scribble OWNER TO math;
+
+--
+-- Name: notes_scribble_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.notes_scribble_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notes_scribble_id_seq OWNER TO math;
+
+--
+-- Name: notes_scribble_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.notes_scribble_id_seq OWNED BY public.notes_scribble.id;
+
+
+--
+-- Name: notes_userprofile; Type: TABLE; Schema: public; Owner: math
+--
+
+CREATE TABLE public.notes_userprofile (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    apple_id_token character varying(255)
+);
+
+
+ALTER TABLE public.notes_userprofile OWNER TO math;
+
+--
+-- Name: notes_userprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: math
+--
+
+CREATE SEQUENCE public.notes_userprofile_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.notes_userprofile_id_seq OWNER TO math;
+
+--
+-- Name: notes_userprofile_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: math
+--
+
+ALTER SEQUENCE public.notes_userprofile_id_seq OWNED BY public.notes_userprofile.id;
+
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group ALTER COLUMN id SET DEFAULT nextval('public.auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_permission ALTER COLUMN id SET DEFAULT nextval('public.auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user ALTER COLUMN id SET DEFAULT nextval('public.auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_groups ALTER COLUMN id SET DEFAULT nextval('public.auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('public.auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_admin_log ALTER COLUMN id SET DEFAULT nextval('public.django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_content_type ALTER COLUMN id SET DEFAULT nextval('public.django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_migrations ALTER COLUMN id SET DEFAULT nextval('public.django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: notes_notebook id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook ALTER COLUMN id SET DEFAULT nextval('public.notes_notebook_id_seq'::regclass);
+
+
+--
+-- Name: notes_notebook_shared_with id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook_shared_with ALTER COLUMN id SET DEFAULT nextval('public.notes_notebook_shared_with_id_seq'::regclass);
+
+
+--
+-- Name: notes_notebookroom id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebookroom ALTER COLUMN id SET DEFAULT nextval('public.notes_notebookroom_id_seq'::regclass);
+
+
+--
+-- Name: notes_point id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_point ALTER COLUMN id SET DEFAULT nextval('public.notes_point_id_seq'::regclass);
+
+
+--
+-- Name: notes_scribble id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_scribble ALTER COLUMN id SET DEFAULT nextval('public.notes_scribble_id_seq'::regclass);
+
+
+--
+-- Name: notes_userprofile id; Type: DEFAULT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_userprofile ALTER COLUMN id SET DEFAULT nextval('public.notes_userprofile_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add notebook	7	add_notebook
+26	Can change notebook	7	change_notebook
+27	Can delete notebook	7	delete_notebook
+28	Can view notebook	7	view_notebook
+29	Can add user profile	8	add_userprofile
+30	Can change user profile	8	change_userprofile
+31	Can delete user profile	8	delete_userprofile
+32	Can view user profile	8	view_userprofile
+33	Can add scribble	9	add_scribble
+34	Can change scribble	9	change_scribble
+35	Can delete scribble	9	delete_scribble
+36	Can view scribble	9	view_scribble
+37	Can add point	10	add_point
+38	Can change point	10	change_point
+39	Can delete point	10	delete_point
+40	Can view point	10	view_point
+41	Can add Token	11	add_token
+42	Can change Token	11	change_token
+43	Can delete Token	11	delete_token
+44	Can view Token	11	view_token
+45	Can add notebook room	12	add_notebookroom
+46	Can change notebook room	12	change_notebookroom
+47	Can delete notebook room	12	delete_notebookroom
+48	Can view notebook room	12	view_notebookroom
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$150000$vg8hT3qg86Rc$76AzSGH4nK6Snx0ZTtKgYLEmSuivFz5HmC83k4I8AJ0=	\N	t	aguycalledjp			jaredp1234@gmail.com	t	t	2020-03-28 17:59:17.862424+00
+2	pbkdf2_sha256$150000$QFOvLjXkIqaE$YbR2EyT7B1nG/k9UlqRJ4MMpVtAF0MZPqT15j0PQUwg=	\N	t	aroon812			aroon812@gmail.com	t	t	2020-03-28 17:59:39.824879+00
+4		\N	f	mike	mike	serrano	mike.serrano.123@gmail.com	f	t	2020-05-17 06:55:00.239694+00
+7	Bootsy2p	\N	f	jaredp1234	jared	Polonitza	Jaredp1234+test@gmail.com	f	t	2020-06-19 19:46:21.160955+00
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: authtoken_token; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.authtoken_token (key, created, user_id) FROM stdin;
+72f715fa5154a44004b41ab7a56ad55b5514db28	2020-04-11 23:49:23.906982+00	1
+4378299c51954a761dd829534ca87179a6c51315	2020-04-11 23:49:23.919984+00	2
+7d0448038ebcbc0f8c181183be91ec0ae0d2cb58	2020-05-17 06:55:00.267273+00	4
+7a2a509cb4d78fad004da0dbced58c58cbb1c527	2020-06-19 19:46:21.17463+00	7
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	notes	notebook
+8	notes	userprofile
+9	notes	scribble
+10	notes	point
+11	authtoken	token
+12	notes	notebookroom
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2020-03-28 17:24:46.959612+00
+2	auth	0001_initial	2020-03-28 17:24:47.047256+00
+3	admin	0001_initial	2020-03-28 17:24:47.250701+00
+4	admin	0002_logentry_remove_auto_add	2020-03-28 17:24:47.291638+00
+5	admin	0003_logentry_add_action_flag_choices	2020-03-28 17:24:47.308215+00
+6	contenttypes	0002_remove_content_type_name	2020-03-28 17:24:47.340787+00
+7	auth	0002_alter_permission_name_max_length	2020-03-28 17:24:47.352339+00
+8	auth	0003_alter_user_email_max_length	2020-03-28 17:24:47.368787+00
+9	auth	0004_alter_user_username_opts	2020-03-28 17:24:47.387279+00
+10	auth	0005_alter_user_last_login_null	2020-03-28 17:24:47.40772+00
+11	auth	0006_require_contenttypes_0002	2020-03-28 17:24:47.418327+00
+12	auth	0007_alter_validators_add_error_messages	2020-03-28 17:24:47.437786+00
+13	auth	0008_alter_user_username_max_length	2020-03-28 17:24:47.479213+00
+14	auth	0009_alter_user_last_name_max_length	2020-03-28 17:24:47.498698+00
+15	auth	0010_alter_group_name_max_length	2020-03-28 17:24:47.52179+00
+16	auth	0011_update_proxy_permissions	2020-03-28 17:24:47.540836+00
+17	notes	0001_initial	2020-03-28 17:24:47.703539+00
+18	sessions	0001_initial	2020-03-28 17:24:47.843952+00
+19	notes	0002_auto_20200328_1844	2020-03-28 18:44:09.4151+00
+20	authtoken	0001_initial	2020-04-11 23:41:11.362473+00
+21	authtoken	0002_auto_20160226_1747	2020-04-11 23:41:11.530153+00
+22	notes	0003_notebookroom	2020-05-02 16:07:01.115275+00
+23	notes	0004_userprofile_apple_id_token	2020-05-17 01:17:20.4859+00
+24	notes	0005_auto_20200519_0114	2020-06-02 01:29:53.821814+00
+25	notes	0006_notebook_notebook_type	2020-06-02 01:29:53.847086+00
+26	notes	0007_auto_20200725_1826	2020-08-30 21:20:06.954256+00
+27	notes	0008_point_ordering	2020-08-30 21:20:06.974434+00
+28	notes	0009_auto_20200811_0250	2020-08-30 21:20:07.001386+00
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: notes_notebook; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.notes_notebook (id, title, "coverImageName", created_by_id, notebook_type, total_pages) FROM stdin;
+21	New New	cover1	1	0	1
+22	WS	cover1	1	1	1
+23	How	cover1	2	0	1
+24	Interesting	cover1	2	0	1
+25	Next tho	cover1	2	0	1
+27	New Cover	CoverDark	1	0	1
+28	Other New Cver	CoverBright	1	0	1
+29	I Know	CoverBright	1	0	1
+\.
+
+
+--
+-- Data for Name: notes_notebook_shared_with; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.notes_notebook_shared_with (id, notebook_id, userprofile_id) FROM stdin;
+12	22	2
+\.
+
+
+--
+-- Data for Name: notes_notebookroom; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.notes_notebookroom (id, title, staff_only, notebook_id) FROM stdin;
+11		f	21
+12		f	22
+13		f	23
+14		f	24
+15		f	25
+17		f	27
+18		f	28
+19		f	29
+\.
+
+
+--
+-- Data for Name: notes_point; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.notes_point (id, x, y, scribble_id, ordering) FROM stdin;
+30444	219	347.5	770	0
+30445	218	349.5	770	1
+30446	218	358	770	2
+30447	218	368.5	770	3
+30448	218	386	770	4
+30449	218	404	770	5
+30450	218	418	770	6
+30451	221.5	428.5	770	7
+30452	228.5	432.5	770	8
+30453	237.5	431	770	9
+30454	253.5	412	770	10
+30455	291.5	373	770	11
+30456	368	326	770	12
+30457	440	303.5	770	13
+30458	475.5	299.5	770	14
+30459	492	298	770	15
+30460	497.5	298	770	16
+30461	500	298	770	17
+30462	504	298	770	18
+30463	514.5	298	770	19
+30464	535.5	292	770	20
+30465	562.5	285.5	770	21
+30466	582.5	283	770	22
+30467	600.5	282	770	23
+30468	620	282	770	24
+30469	639.5	282	770	25
+30470	659.5	286.5	770	26
+30471	668	288	770	27
+30472	678	290	770	28
+30473	680.5	290	770	29
+30215	349	296.5	761	0
+30216	348.5	294.5	761	1
+30217	348.5	293.5	761	2
+30218	348.5	288	761	3
+30219	348.5	283.5	761	4
+30220	348.5	282	761	5
+30221	351.5	282	761	6
+30222	385.5	297	761	7
+30223	446	322.5	761	8
+30224	475.5	329.5	761	9
+30225	495	332.5	761	10
+30226	500.5	333	761	11
+30227	501.5	333	761	12
+30228	501.5	331	761	13
+30229	499.5	314.5	761	14
+30230	491.5	279	761	15
+30231	485.5	251.5	761	16
+30232	484.5	233.5	761	17
+30233	487.5	226	761	18
+30234	507	226	761	19
+30235	527	229.5	761	20
+30236	560.5	238	761	21
+30237	584.5	239.5	761	22
+30238	607.5	239	761	23
+30239	622.5	231.5	761	24
+30240	272	218.5	762	0
+30241	269.5	218.5	762	1
+30242	265.5	218.5	762	2
+30243	261.5	218.5	762	3
+30244	261	220.5	762	4
+30245	259.5	237	762	5
+30246	259.5	268	762	6
+30247	259.5	289.5	762	7
+30248	259.5	323.5	762	8
+30249	266.5	339	762	9
+30250	276	346	762	10
+30251	291.5	348	762	11
+30252	328	334	762	12
+30253	405	265.5	762	13
+30254	449	214.5	762	14
+30255	474	185	762	15
+30256	490.5	172	762	16
+30257	501	173.5	762	17
+30258	517.5	194	762	18
+30259	532	217	762	19
+30260	540.5	231.5	762	20
+30261	349	296.5	763	0
+30262	348.5	294.5	763	1
+30263	348.5	293.5	763	2
+30264	348.5	288	763	3
+30265	348.5	283.5	763	4
+30266	348.5	282	763	5
+30267	351.5	282	763	6
+30268	385.5	297	763	7
+30269	446	322.5	763	8
+30270	475.5	329.5	763	9
+30271	495	332.5	763	10
+30272	500.5	333	763	11
+30273	501.5	333	763	12
+30274	501.5	331	763	13
+30275	499.5	314.5	763	14
+30276	491.5	279	763	15
+30277	485.5	251.5	763	16
+30278	484.5	233.5	763	17
+30279	487.5	226	763	18
+30280	507	226	763	19
+30281	527	229.5	763	20
+30282	560.5	238	763	21
+30283	584.5	239.5	763	22
+30284	607.5	239	763	23
+30285	622.5	231.5	763	24
+30286	440.5	198	764	0
+30287	434.5	195.5	764	1
+30288	404.5	165.5	764	2
+30289	376	143.5	764	3
+30290	354	132	764	4
+30291	323.5	130.5	764	5
+30292	311.5	137.5	764	6
+30293	304	167.5	764	7
+30294	307.5	212.5	764	8
+30295	330.5	261	764	9
+30296	346.5	289	764	10
+30297	364.5	319.5	764	11
+30298	371	328.5	764	12
+30299	380.5	325	764	13
+30300	388	295.5	764	14
+30301	417.5	224	764	15
+30302	459.5	178	764	16
+30303	508.5	167.5	764	17
+30304	553.5	183.5	764	18
+30305	579	210.5	764	19
+30306	590.5	234	764	20
+30307	593.5	247	764	21
+30308	591	247	764	22
+30362	584.5	247	767	0
+30363	584.5	279.5	767	1
+30364	584.5	309	767	2
+30365	584.5	342	767	3
+30366	584.5	371	767	4
+30367	579.5	393.5	767	5
+30368	571	413	767	6
+30369	563	422	767	7
+30370	553.5	427	767	8
+30371	527	430	767	9
+30372	481	417	767	10
+30373	440	391.5	767	11
+30374	416	376.5	767	12
+30375	404.5	373.5	767	13
+30376	398.5	383	767	14
+30377	398.5	411	767	15
+30378	412.5	485.5	767	16
+30379	435	542.5	767	17
+30380	449	577.5	767	18
+30381	454	590.5	767	19
+30382	458.5	599	767	20
+30383	460	602.5	767	21
+30384	463.5	603	767	22
+30385	487	597	767	23
+30386	522	588.5	767	24
+30387	588.5	586	767	25
+30388	640.5	583	767	26
+30389	679	570.5	767	27
+30390	693.5	547.5	767	28
+30391	713.5	515	768	0
+30392	717.5	515	768	1
+30393	726.5	515	768	2
+30394	741.5	515	768	3
+30395	763	515	768	4
+30396	772.5	515	768	5
+30397	779.5	515	768	6
+30398	784	515	768	7
+30399	786	512.5	768	8
+30400	786	501	768	9
+30401	773	463	768	10
+30402	766	441	768	11
+30403	757.5	418	768	12
+30404	755	406.5	768	13
+30405	754.5	404	768	14
+30406	754	403	768	15
+30407	756.5	402.5	768	16
+30408	774.5	401	768	17
+30409	786.5	397	768	18
+30410	812.5	372.5	768	19
+30411	829	326.5	768	20
+30412	831	302	768	21
+30413	830	270.5	768	22
+30414	805	251	768	23
+30415	584.5	247	769	0
+30416	584.5	279.5	769	1
+30417	584.5	309	769	2
+30418	584.5	342	769	3
+30419	584.5	371	769	4
+30420	579.5	393.5	769	5
+30421	571	413	769	6
+30422	563	422	769	7
+30423	553.5	427	769	8
+30424	527	430	769	9
+30425	481	417	769	10
+30426	440	391.5	769	11
+30427	416	376.5	769	12
+30428	404.5	373.5	769	13
+30429	398.5	383	769	14
+30430	398.5	411	769	15
+30431	412.5	485.5	769	16
+30432	435	542.5	769	17
+30433	449	577.5	769	18
+30434	454	590.5	769	19
+30435	458.5	599	769	20
+30436	460	602.5	769	21
+30437	463.5	603	769	22
+30438	487	597	769	23
+30439	522	588.5	769	24
+30440	588.5	586	769	25
+30441	640.5	583	769	26
+30442	679	570.5	769	27
+30443	693.5	547.5	769	28
+\.
+
+
+--
+-- Data for Name: notes_scribble; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.notes_scribble (id, color, notebook_id, written_by_id, last_screen_height, last_screen_width, page, last_modified_by_id) FROM stdin;
+770	black	22	1	1080	1024	1	1
+761	black	22	2	908	834	1	2
+762	black	22	2	908	834	1	2
+763	black	22	2	908	834	1	2
+764	black	22	1	1080	1024	1	1
+767	black	22	1	1080	1024	1	1
+768	black	22	1	1080	1024	1	1
+769	black	22	1	1080	1024	1	1
+\.
+
+
+--
+-- Data for Name: notes_userprofile; Type: TABLE DATA; Schema: public; Owner: math
+--
+
+COPY public.notes_userprofile (id, user_id, apple_id_token) FROM stdin;
+2	2	
+1	1	001607.eefe68956b6646f4bef6b3fc09007e35.2150
+4	4	000867.8980d1d8a83742b0ac63a54da3e72b50.0650
+7	7	
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 10, true);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 28, true);
+
+
+--
+-- Name: notes_notebook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.notes_notebook_id_seq', 29, true);
+
+
+--
+-- Name: notes_notebook_shared_with_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.notes_notebook_shared_with_id_seq', 12, true);
+
+
+--
+-- Name: notes_notebookroom_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.notes_notebookroom_id_seq', 19, true);
+
+
+--
+-- Name: notes_point_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.notes_point_id_seq', 30473, true);
+
+
+--
+-- Name: notes_scribble_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.notes_scribble_id_seq', 770, true);
+
+
+--
+-- Name: notes_userprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: math
+--
+
+SELECT pg_catalog.setval('public.notes_userprofile_id_seq', 10, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: authtoken_token authtoken_token_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.authtoken_token
+    ADD CONSTRAINT authtoken_token_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: authtoken_token authtoken_token_user_id_key; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: notes_notebook notes_notebook_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook
+    ADD CONSTRAINT notes_notebook_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes_notebook_shared_with notes_notebook_shared_wi_notebook_id_userprofile__ea7ac1dc_uniq; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook_shared_with
+    ADD CONSTRAINT notes_notebook_shared_wi_notebook_id_userprofile__ea7ac1dc_uniq UNIQUE (notebook_id, userprofile_id);
+
+
+--
+-- Name: notes_notebook_shared_with notes_notebook_shared_with_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook_shared_with
+    ADD CONSTRAINT notes_notebook_shared_with_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes_notebookroom notes_notebookroom_notebook_id_key; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebookroom
+    ADD CONSTRAINT notes_notebookroom_notebook_id_key UNIQUE (notebook_id);
+
+
+--
+-- Name: notes_notebookroom notes_notebookroom_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebookroom
+    ADD CONSTRAINT notes_notebookroom_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes_point notes_point_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_point
+    ADD CONSTRAINT notes_point_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes_userprofile notes_userprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_userprofile
+    ADD CONSTRAINT notes_userprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes_userprofile notes_userprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_userprofile
+    ADD CONSTRAINT notes_userprofile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: authtoken_token_key_10f0b77e_like; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX authtoken_token_key_10f0b77e_like ON public.authtoken_token USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: notes_notebook_created_by_id_d0414e8e; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_notebook_created_by_id_d0414e8e ON public.notes_notebook USING btree (created_by_id);
+
+
+--
+-- Name: notes_notebook_shared_with_notebook_id_843a9fc3; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_notebook_shared_with_notebook_id_843a9fc3 ON public.notes_notebook_shared_with USING btree (notebook_id);
+
+
+--
+-- Name: notes_notebook_shared_with_userprofile_id_5cc4913a; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_notebook_shared_with_userprofile_id_5cc4913a ON public.notes_notebook_shared_with USING btree (userprofile_id);
+
+
+--
+-- Name: notes_point_scribble_id_532524ff; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_point_scribble_id_532524ff ON public.notes_point USING btree (scribble_id);
+
+
+--
+-- Name: notes_scribble_last_modified_by_id_9b9ea2ee; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_scribble_last_modified_by_id_9b9ea2ee ON public.notes_scribble USING btree (last_modified_by_id);
+
+
+--
+-- Name: notes_scribble_notebook_id_17705f50; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_scribble_notebook_id_17705f50 ON public.notes_scribble USING btree (notebook_id);
+
+
+--
+-- Name: notes_scribble_written_by_id_51230d89; Type: INDEX; Schema: public; Owner: math
+--
+
+CREATE INDEX notes_scribble_written_by_id_51230d89 ON public.notes_scribble USING btree (written_by_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authtoken_token authtoken_token_user_id_35299eff_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_35299eff_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_notebook notes_notebook_created_by_id_d0414e8e_fk_notes_userprofile_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook
+    ADD CONSTRAINT notes_notebook_created_by_id_d0414e8e_fk_notes_userprofile_id FOREIGN KEY (created_by_id) REFERENCES public.notes_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_notebook_shared_with notes_notebook_share_notebook_id_843a9fc3_fk_notes_not; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook_shared_with
+    ADD CONSTRAINT notes_notebook_share_notebook_id_843a9fc3_fk_notes_not FOREIGN KEY (notebook_id) REFERENCES public.notes_notebook(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_notebook_shared_with notes_notebook_share_userprofile_id_5cc4913a_fk_notes_use; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebook_shared_with
+    ADD CONSTRAINT notes_notebook_share_userprofile_id_5cc4913a_fk_notes_use FOREIGN KEY (userprofile_id) REFERENCES public.notes_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_notebookroom notes_notebookroom_notebook_id_53c46122_fk_notes_notebook_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_notebookroom
+    ADD CONSTRAINT notes_notebookroom_notebook_id_53c46122_fk_notes_notebook_id FOREIGN KEY (notebook_id) REFERENCES public.notes_notebook(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_scribble notes_scribble_last_modified_by_id_9b9ea2ee_fk_notes_use; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_scribble
+    ADD CONSTRAINT notes_scribble_last_modified_by_id_9b9ea2ee_fk_notes_use FOREIGN KEY (last_modified_by_id) REFERENCES public.notes_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_scribble notes_scribble_notebook_id_17705f50_fk_notes_notebook_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_scribble
+    ADD CONSTRAINT notes_scribble_notebook_id_17705f50_fk_notes_notebook_id FOREIGN KEY (notebook_id) REFERENCES public.notes_notebook(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_scribble notes_scribble_written_by_id_51230d89_fk_notes_userprofile_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_scribble
+    ADD CONSTRAINT notes_scribble_written_by_id_51230d89_fk_notes_userprofile_id FOREIGN KEY (written_by_id) REFERENCES public.notes_userprofile(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notes_userprofile notes_userprofile_user_id_1e03ebdb_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: math
+--
+
+ALTER TABLE ONLY public.notes_userprofile
+    ADD CONSTRAINT notes_userprofile_user_id_1e03ebdb_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

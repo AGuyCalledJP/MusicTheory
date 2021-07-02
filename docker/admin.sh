@@ -1,0 +1,1 @@
+  docker-compose run --rm db psql -U postgres -h db -p 5432 -W
